@@ -1,0 +1,6 @@
+DROP TABLE IF EXISTS story_themes CASCADE;
+
+CREATE TABLE story_themes (
+  id SERIAL PRIMARY KEY NOT NULL,
+  theme VARCHAR(255) NOT NULL
+);
