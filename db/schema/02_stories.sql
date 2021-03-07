@@ -8,7 +8,7 @@ CREATE TABLE stories (
   content TEXT NOT NULL,
   created_at TIMESTAMP,
   story_image VARCHAR(255),
-  story_status BOOLEAN
+  story_status BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 
