@@ -36,15 +36,18 @@ app.use(express.static("public"));
 const usersRoutes = require("./routes/users");
 const storiesRoutes = require("./routes/stories");
 const contributionsRoutes = require("./routes/contributions");
-
+const registerRoutes = require("./routes/register");
+const user_profileRoutes = require("./routes/user_profile");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/api/users", usersRoutes(db));
 
 // Note: mount other resources here, using the same pattern above
-app.use("/stories", storiesRoutes);
-app.use("/api/contributions", contributionsRoutes(db));
+app.use("/stories", storiesRoutes(db));
+app.use("/story_contributions", contributionsRoutes(db));
+app.use("/register", registerRoutes(db));
+app.use("/user_profile", user_profileRoutes(db));
 
 
 // Home page
@@ -54,13 +57,6 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/register", (req, res) => {
-  res.render("register");
-});
-
-app.get("/user_profile", (req, res) => {
-  res.render("user_profile");
-});
 
 
 
