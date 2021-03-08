@@ -26,7 +26,7 @@ module.exports = (db) => {
     const user_password = req.body.user_password;
     const values = [user_email, user_password];
     
-    db.query(`SELECT user_name, profile_pic_path
+    db.query(`SELECT user_email, password
     FROM users
     WHERE user_email = $1
     AND user_password = $2;`, values)

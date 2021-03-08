@@ -5,6 +5,7 @@ const express = require('express');
 const router  = express.Router();
 
 module.exports = (db) => {
+    //render the stories page to view all stories
     router.get("/", (req, res) => {
         res.render("stories");
     });

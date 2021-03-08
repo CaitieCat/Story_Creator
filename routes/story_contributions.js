@@ -8,5 +8,8 @@ module.exports = (db) => {
     router.get("/", (req, res) => {
         res.render("story_contributions");
     });
+    router.post("/", (req, res) => {
+      console.log("Posted a contribution!");
+  });
   return router;
 };

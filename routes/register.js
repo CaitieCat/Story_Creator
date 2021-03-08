@@ -10,8 +10,9 @@ module.exports = (db) => {
         res.render("register");
     });
 
-    router.post("/register", (req, res) => {
-        const user_name = req.body.user_name;
+    router.post("/", (req, res) => {
+        console.log("Post request to register");
+       /* const user_name = req.body.user_name;
         const user_email = req.body.user_email;
         const user_password = req.body.user_password;
         const values = [user_name, user_email, user_password];
@@ -25,7 +26,7 @@ module.exports = (db) => {
         res
         .status(500)
         .json({ error: err.message });
-        });
+        });*/
     });
   return router;
 };
