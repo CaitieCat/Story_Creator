@@ -1,5 +1,5 @@
 /*
- * All routes for Users are defined here
+ * All routes for login are defined here
  * Since this file is loaded in server.js into /login
  */
 
@@ -21,7 +21,7 @@ module.exports = (db) => {
     });
   });
 
-  router.post("/login", (req, res) => {
+  router.post("/", (req, res) => {
     const user_email = req.body.user_email;
     const user_password = req.body.user_password;
     const values = [user_email, user_password];
