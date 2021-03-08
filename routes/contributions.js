@@ -4,7 +4,9 @@
 const express = require('express');
 const router  = express.Router();
 
-router.get("/", (req, res) => {
-    res.render("story_contributions");
-});
-module.exports = router;
+module.exports = (db) => {
+    router.get("/", (req, res) => {
+        res.render("story_contributions");
+    });
+  return router;
+};
