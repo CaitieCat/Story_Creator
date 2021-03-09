@@ -9,3 +9,4 @@ DROP COLUMN story_id;
 
 ALTER TABLE story_themes 
 ADD COLUMN story_id INTEGER REFERENCES stories(id) ON DELETE CASCADE;
+

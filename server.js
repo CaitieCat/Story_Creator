@@ -26,14 +26,25 @@ db.on("error", (err) =>{
 app.use(morgan('dev'));
 
 app.set("view engine", "ejs");
+
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+
+
+//app.use(bodyParser.urlencoded({ extended: true }));
+
+// app.use(bodyParser.urlencoded({extended: true})); // This will help in encoding.
+ // this will support json format
+
+app.use(express.static("public")); 
 app.use("/styles", sass({
   src: __dirname + "/styles",
   dest: __dirname + "/public/styles",
   debug: true,
   outputStyle: 'expanded'
 }));
-app.use(express.static("public"));
+
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
@@ -45,8 +56,12 @@ const user_profileRoutes = require("./routes/user_profile");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
+<<<<<<< HEAD
 app.use("/api/users", usersRoutes(db));
 
+=======
+app.use("/users", usersRoutes(db));
+>>>>>>> b6b35a35f6271da4800ffc2b574cdefe4b66d3be
 // Note: mount other resources here, using the same pattern above
 app.use("/stories", storiesRoutes(db));
 app.use("/new_story", newStoryRoutes(db));
