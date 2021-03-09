@@ -5,8 +5,23 @@ const express = require('express');
 const router  = express.Router();
 
 
+
+
 module.exports = (db) => {
     router.get("/", (req, res) => {
+        const query =  (`SELECT id, user_name FROM users`);
+        const results = db.query(query);
+
+        results.then(res => {
+        console.log(res.rows);
+        //console.log("hi");
+        })
+        .catch(err => {
+        res
+        .status(500)
+        .json({ error: err.message });
+        })
+        console.log(query);
         res.render("register");
     });
 
