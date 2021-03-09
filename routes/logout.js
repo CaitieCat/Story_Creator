@@ -7,23 +7,7 @@ const express = require('express');
 const router  = express.Router();
 
 module.exports = (db) => {
-  router.get("/", (req, res) => {
-    db.query(`SELECT * FROM users;`)
-    .then(data => {
-      const users = data.rows;
-      console.log(users);
-      res.json({ users });
-    })
-    .catch(err => {
-      res
-      .status(500)
-      .json({ error: err.message });
-    });
-  });
-
   router.post("/", (req, res) => {
-    const user_email = req.body.user_email;
-    const user_password = req.body.user_password;
     const values = [user_email, user_password];
     
     db.query(`SELECT user_name, profile_pic_path
