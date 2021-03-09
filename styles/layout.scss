@@ -34,16 +34,15 @@ button {
 }
 .stories{
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
   justify-content: space-around;
-  align-items: center;
+  
 }
 
 table {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
 }
 
 
