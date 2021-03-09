@@ -9,5 +9,11 @@ module.exports = (db) => {
     router.get("/", (req, res) => {
         res.render("stories");
     });
+    router.get("/:story_id", (req, res) => {
+        res.render("story_contributions");
+    });
+    router.post("/:story_id", (req, res) => {
+      console.log("Posted a contribution!");
+    });
   return router;
 }

@@ -36,7 +36,6 @@ app.use(express.static("public"));
 const usersRoutes = require("./routes/users");
 const storiesRoutes = require("./routes/stories");
 const newStoryRoutes = require("./routes/new_story");
-const contributionsRoutes = require("./routes/story_contributions");
 const registerRoutes = require("./routes/register");
 const user_profileRoutes = require("./routes/user_profile");
 
@@ -47,7 +46,6 @@ app.use("/api/users", usersRoutes(db));
 // Note: mount other resources here, using the same pattern above
 app.use("/stories", storiesRoutes(db));
 app.use("/new_story", newStoryRoutes(db));
-app.use("/story_contributions", contributionsRoutes(db));
 app.use("/register", registerRoutes(db));
 app.use("/user_profile", user_profileRoutes(db));
 

@@ -27,13 +27,14 @@ module.exports = (db) => {
 
     router.post("/", (req, res) => {
         console.log("Post request to register");
-       /* const user_name = req.body.user_name;
+        const user_name = req.body.user_name;
         const user_email = req.body.user_email;
         const user_password = req.body.user_password;
-        const values = [user_name, user_email, user_password];
+        const profile_pic = req.body.user_pic;
+        const values = [user_name, user_email, user_password, profile_pic];
         
-        db.query(`INSERT INTO users
-        VALUES ($1, $2, $3)` , values)
+        db.query(`INSERT INTO users (user_name, user_email, password, profile_pic_path)
+        VALUES ($1, $2, $3, $4)` , values)
         .then(data => {
         console.log(res.data);
         })
@@ -41,7 +42,7 @@ module.exports = (db) => {
         res
         .status(500)
         .json({ error: err.message });
-        });*/
+        });
     });
   return router;
 };
