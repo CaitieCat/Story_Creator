@@ -14,7 +14,11 @@ const morgan     = require('morgan');
 const { Pool } = require('pg');
 const dbParams = require('./lib/db.js');
 const db = new Pool(dbParams);
+console.log(dbParams);
 db.connect();
+db.on("error", (err) =>{
+  console.log("Error message: ", err);
+});
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -22,30 +26,47 @@ db.connect();
 app.use(morgan('dev'));
 
 app.set("view engine", "ejs");
+
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+
+
+//app.use(bodyParser.urlencoded({ extended: true }));
+
+// app.use(bodyParser.urlencoded({extended: true})); // This will help in encoding.
+ // this will support json format
+
+app.use(express.static("public")); 
 app.use("/styles", sass({
   src: __dirname + "/styles",
   dest: __dirname + "/public/styles",
   debug: true,
   outputStyle: 'expanded'
 }));
-app.use(express.static("public"));
+
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 const usersRoutes = require("./routes/users");
-const loginRoutes = require("./routes/login");
+const storiesRoutes = require("./routes/stories");
+const newStoryRoutes = require("./routes/new_story");
 const registerRoutes = require("./routes/register");
-const logoutRoutes = require("./routes/logout");
-
+const user_profileRoutes = require("./routes/user_profile");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
-//app.use("/api/users", usersRoutes(db));
-//app.use("/db/login", loginRoutes(db));
-//app.use("/db/register", registerRoutes(db));
-//app.use("/db/logout", logoutRoutes(db));
+<<<<<<< HEAD
+app.use("/api/users", usersRoutes(db));
+
+=======
+app.use("/users", usersRoutes(db));
+>>>>>>> b6b35a35f6271da4800ffc2b574cdefe4b66d3be
 // Note: mount other resources here, using the same pattern above
+app.use("/stories", storiesRoutes(db));
+app.use("/new_story", newStoryRoutes(db));
+app.use("/register", registerRoutes(db));
+app.use("/user_profile", user_profileRoutes(db));
 
 
 // Home page
@@ -55,25 +76,7 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/create_stories", (req, res) => {
-  res.render("create_stories");
-});
 
-app.get("/register", (req, res) => {
-  res.render("register");
-});
-
-app.get("/user_profile", (req, res) => {
-  res.render("user_profile");
-});
-
-app.get("/story_contributions", (req, res) => {
-  res.render("story_contributions");
-});
-
-app.get("/stories", (req, res) => {
-  res.render("stories");
-});
 
 
 app.listen(PORT, () => {
