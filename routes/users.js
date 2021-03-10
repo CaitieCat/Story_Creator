@@ -43,11 +43,18 @@
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 
-const express = require('express');
-const router  = express.Router();
-module.exports = (db) => {
+// const express = require('express');
+// const router  = express.Router();
+// module.exports = (db) => {
   
-  router.get("/", (req, res) => {
+  /*router.get("/", (req, res) => {
+    res.render("register");
+    db.query(`SELECT * FROM users`)
+    .then(data => {
+      const users = data.rows;
+      console.log(data);
+
+  /*router.get("/", (req, res) => {
     const user_email = req.body.user_email;
     const password = req.body.user_password;
     const values = ['alice@alice.com', 'password'];
@@ -66,6 +73,7 @@ module.exports = (db) => {
       .status(500)
       .json({ error: err.message });
     });
-  });
-  return router;
-};
+  });*/
+
+  //return router;
+// };

@@ -14,7 +14,11 @@ const morgan     = require('morgan');
 const { Pool } = require('pg');
 const dbParams = require('./lib/db.js');
 const db = new Pool(dbParams);
+// console.log(dbParams);
 db.connect();
+db.on("error", (err) =>{
+  console.log("Error message: ", err);
+});
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -25,7 +29,6 @@ app.set("view engine", "ejs");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 
 
 //app.use(bodyParser.urlencoded({ extended: true }));
@@ -44,13 +47,21 @@ app.use("/styles", sass({
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
-const usersRoutes = require("./routes/users");
-
+//const usersRoutes = require("./routes/users");
+const storiesRoutes = require("./routes/stories");
+const newStoryRoutes = require("./routes/new_story");
+const registerRoutes = require("./routes/register");
+const user_profileRoutes = require("./routes/user_profile");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
-app.use("/users", usersRoutes(db));
+// app.use("/api/users", usersRoutes(db));
+
 // Note: mount other resources here, using the same pattern above
+app.use("/stories", storiesRoutes(db));
+app.use("/new_story", newStoryRoutes(db));
+app.use("/register", registerRoutes(db));
+app.use("/user_profile", user_profileRoutes(db));
 
 
 // Home page
@@ -59,6 +70,9 @@ app.use("/users", usersRoutes(db));
 app.get("/", (req, res) => {
   res.render("index");
 });
+
+
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

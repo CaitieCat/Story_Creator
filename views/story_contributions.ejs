@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
+
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
+  </head>
+
+  <body>
+    <%- include('partials/_header') %>  
+    <h1>Welcome!</h1>
+      <p>This is a page to display all the story contributions</p>
+      <form class="form-inline" action="/story_contributions" method="POST">
+        <div class = "content"></div>
+          Name: <input type="text" placeholder="Enter your name" name="name"><br/>
+          Email: <input type="text" placeholder="Enter your email" name="email"><br/>
+          Password: <input type="password" placeholder="Enter your password" name="password"><br/>
+          Profile Picture: <input type="text" placeholder="Select profile picture" name="profile_pic_path"><br/>
+          <input type="submit" value="Send"/>
+        </div>
+      </form>
+    <footer>this is the footer</footer>
+  </body>
+</html>
