@@ -4,15 +4,16 @@
 const express = require("express");
 const router = express.Router();
 
+
 module.exports = (db) => {
   router.get("/", (req, res) => {
     res.render("register");
   });
 
   router.post("/", (req, res) => {
-    const user_name = req.body.name;
+    const user_name = req.body.user_name;
     const user_email = req.body.email;
-    const user_password = req.body.password;
+    const user_password = req.body.password
     const profile_pic = req.body.user_pic;
     const values = [user_name, user_email, user_password, "http"];
     console.log("values", values);

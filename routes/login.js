@@ -6,32 +6,30 @@
 const express = require('express');
 const router  = express.Router();
 
+
 module.exports = (db) => {
   router.post("/", (req, res) => {
-<<<<<<< HEAD
-    const user_email = req.body.user_email;
-    const user_password = req.body.user_password;
+    const user_email = req.body.email;
+    const user_password = req.body.password;
     const values = [user_email, user_password];
-    
-    if (req.body.email === '' || req.body.password === '') {
+    console.log(values);
+    if (user_email === '' || user_password === '') {
       res.sendStatus(403);
     } else {
-      db.query(`SELECT user_email, password
+      db.query(`SELECT user_name
       FROM users
       WHERE user_email = $1
-      AND user_password = $2;`, values)
+      AND password = $2;`, values)
       .then(data => {
-        const users = data.rows;
-        console.log(users);
-        res.json({ users });
+        res.cookie('user_name', user_email);
+        console.log("rows", data.rows[0]);
+        res.redirect('/stories');
       })
       .catch(err => {
+        console.log(err.message);
         res.sendStatus(403);
       });
     }
-=======
-    console.log(req.body);
->>>>>>> b6b35a35f6271da4800ffc2b574cdefe4b66d3be
   });
   return router;
 };
