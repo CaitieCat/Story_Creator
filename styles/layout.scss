@@ -5,12 +5,21 @@
   height: 100px;
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
-  align-content: flex-end;
+  justify-content: space-around;
+  align-items: flex-end;
+  button {
+    background-color: #4E5166;
+    color: #DEE7E7;
+    border-radius: 8px;
+    margin-bottom: 1.5em;
+    margin-right: 1em;
+  }
 }
 .navbar-brand{
   color: #F4FAFF;
   font-family: 'Monoton', cursive;
+  flex-grow: 2;
+  margin: 1.5em;
 }
 .navbar-brand:hover{
   color: #DEE7E7;
