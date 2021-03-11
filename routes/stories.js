@@ -3,7 +3,7 @@
 
 const express = require('express');
 const router  = express.Router();
-const { allStories, allContributions, storyStart } = require('../lib/dbhelpers/stories_db_helper');
+const { allStories, allContributions, storyStart, storyCompleted } = require('../lib/dbhelpers/stories_db_helper');
 //const { newStory } = require('./public/scripts/helpers');
 
 module.exports = (db) => {
@@ -53,27 +53,28 @@ module.exports = (db) => {
 
   router.get('/:id', (req, res) => {
     const story_id = req.params.id;
-    console.log(story_id);
+    const cookie = req.cookies['user_id'];
+    console.log(cookie);
     console.log("Redirected to a unique story");
+    const tempVar = {story_id};
     const userContributions = allContributions(db, story_id)
     .then((user_contributions) => {
       const contributions = [];
+      for (let each of user_contributions) {
+          contributions.push(each);
+      }
+      tempVar.contributions = contributions;
       const storyContent = storyStart(db, story_id)
       .then((data) => {
-      //console.log(data);
-      return data;
-      })
-      console.log(storyContent);
-      const tempVar = { contributions, story_id, storyContent};
-        for (let each of user_contributions) {
-            contributions.push(each);
-        }
+        tempVar.storyContent = data[0]['content'];
         res.render("story_contributions", tempVar);
+    })
       })
       .catch((err) => {
         console.log("Error: ", err);
         res.status(500).json({ error: err.message });
       });
+
   });
 
   router.post('/:id', (req, res) => {
@@ -93,6 +94,19 @@ module.exports = (db) => {
         res.status(500).json({ error: err.message });
       });
   }) 
+
+  router.post('/:id/statusUpdate', (req, res) => {
+    res.redirect("/stories");
+    const story_id = parseInt(req.params.id);
+    console.log(story_id);
+    const storyComplete = storyCompleted(db, story_id)
+    .then((data) => {
+      })
+      .catch((err) => {
+        console.log("Error: ", err);
+        res.status(500).json({ error: err.message });
+      });
+  })
 
   return router;
 };
