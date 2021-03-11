@@ -6,7 +6,7 @@ const router  = express.Router();
 const {allStories} = require('../lib/dbhelpers/stories_db_helper');
 //const { newStory } = require('./public/scripts/helpers');
 
-module.exports = (db) => { 
+module.exports = (db) => {
   // can be used if there is an Admin page to list all the clients /* router.get 
   //render the stories page to view all stories
   router.get("/", (req, res) => {
