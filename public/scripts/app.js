@@ -27,7 +27,7 @@ $(() => {
             <p>${story.created_at}</p>
           </footer>
         </div>
-  `
+  `;
    return story;
   }
 
@@ -48,4 +48,23 @@ $(() => {
 
 displayStories();
 
+  $("#submit").on("submit", function(event) { 
+    // prevent the default behavior of the form submission
+    event.preventDefault();
+    const content = $(this).serialize();
+    if (content === 'text=' || content === null ){
+      $(".errorMessage").slideDown();
+      setTimeout(()=>{
+        $(".errorMessage").slideUp();
+      }, 4000)
+      event.stopPropagation();
+    } else {
+      $.post( "/stories", content )
+      .then (() => {
+        $(".errorMessage").slideUp();
+        displayStories();
+      });
+    }
+  });
 });
+

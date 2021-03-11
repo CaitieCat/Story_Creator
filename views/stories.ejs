@@ -25,6 +25,7 @@
     <main class="create-stories">
       <div class="container">
         <form method="POST">
+          <input class="form-control" type="text" name="title" placeholder="Story Title" style="width: 300px; margin: 1em">
           <textarea class="new-story" name="content" placeholder="Start your story here..." rows="6"></textarea>
           <button type="submit" class="submit-button" >Post</button>
           </div>
@@ -35,6 +36,20 @@
     <div class="stories-container">
       <div class="completed-stories">
         <h1>Completed Stories</h1>
+        <% for (const each of completeStories) {%>
+          <div class="story">
+            <header>
+              <a href="/stories/:id"><%= each.title %></a>
+              <button>Delete</button>
+            </header>
+             <p><%= each.theme_id %></p>
+             <hr>
+            <footer>
+              <p><%= each.user_id %></p>
+              <p><%= each.created_at %></p>
+            </footer>
+            </div>
+            <% } %>
         <div class="story">
           <header>
             <a href="/stories/:id">Story 1</a>
@@ -75,33 +90,20 @@
 
       <div class="inprogress-stories">
         <h1>In-Progress Stories</h1>
-        <% for(const each of stories) {%>
+        <% for (const each of inprogressStories) {%>
         <div class="story">
           <header>
-            <a href="/stories/${story.id}"><% each.title %></a>
+            <a href="/stories/:id"><%= each.title %></a>
             <button>Delete</button>
           </header>
-          <p><% each.theme_id %></p>
-          <hr>
-          <footer>
-            <p><% each.user_name %></p>
-            <p><% story.created_at %></p>
-          </footer>
-        </div>
-        <% } %>
-        
-        <div class="story">
-          <header>
-            <a href="/stories/:id">Story 3</a>
-            <button>Delete</button>
-          </header>
-           <p>Theme</p>
+           <p><%= each.theme_id %></p>
            <hr>
           <footer>
-            <p>Name</p>
-            <p>Created at</p>
+            <p><%= each.user_id %></p>
+            <p><%= each.created_at %></p>
           </footer>
           </div>
+          <% } %>
           <div class="story">
             <header>
               <a href="/stories/:id">Story 3</a>
@@ -130,5 +132,3 @@
 
   </body>
 </html>
-
-

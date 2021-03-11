@@ -41,14 +41,27 @@
 
           <main>
             <div class="container">
-              <form method="GET" action="/stories/:id">
-                <textarea class="new-contribution" name="text" placeholder="Start your story here..." rows="6"></textarea>
+              <form method="POST" action="/stories/:id">
+                <textarea class="newContribution" name="newContribution" placeholder="Start your story here..." rows="6"></textarea>
                 <button type="submit" class="submit-button" >Post</button>
               </form>
             </div>
           </main>
 
           <h1>Contributions</h1>
+          <% for (const each of contributions) {%>
+            <div class="contribution">
+              <header>
+                <button>Delete</button>
+              </header>
+               <p><%= each.contribution %></p>
+               <hr>
+              <footer>
+                <p><%= each.user_id %></p>
+                <p><%= each.contributed_at %></p>
+              </footer>
+              </div>
+              <% } %>
           <div class="contribution">
             <header>
               <a href="/stories/:id">Story 3</a>

@@ -10,24 +10,29 @@ const router  = express.Router();
 module.exports = (db) => {
   router.post("/", (req, res) => {
     const user_email = req.body.email;
-    const user_password = req.body.password;
-    const values = [user_email, user_password];
+    const password = req.body.password;
+    const values = [user_email, password];
     console.log(values);
-    if (user_email === '' || user_password === '') {
-      res.sendStatus(403);
+    if (user_email === '' || password === '') {
+      res.send("Please enter your email and password!");
     } else {
-      db.query(`SELECT user_name
+      db.query(`SELECT *
       FROM users
       WHERE user_email = $1
-      AND password = $2;`, values)
+      AND password = $2`, values)
       .then(data => {
-        res.cookie('user_name', user_email);
-        console.log("rows", data.rows[0]);
-        res.redirect('/stories');
+        if (data.rows[0] === undefined){
+          console.log(data.rows);
+          res.cookie('user_name', user_email);
+          console.log("rows", data.rows[0]);
+          res.redirect('/stories');
+        } else if (data.rows = []) {
+          res.send("Invalid email or password");
+        }
       })
       .catch(err => {
         console.log(err.message);
-        res.sendStatus(403);
+        res.send("Invalid email or password");
       });
     }
   });
