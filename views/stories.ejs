@@ -75,6 +75,21 @@
 
       <div class="inprogress-stories">
         <h1>In-Progress Stories</h1>
+        <% for(const each of stories) {%>
+        <div class="story">
+          <header>
+            <a href="/stories/${story.id}"><% each.title %></a>
+            <button>Delete</button>
+          </header>
+          <p><% each.theme_id %></p>
+          <hr>
+          <footer>
+            <p><% each.user_name %></p>
+            <p><% story.created_at %></p>
+          </footer>
+        </div>
+        <% } %>
+        
         <div class="story">
           <header>
             <a href="/stories/:id">Story 3</a>
