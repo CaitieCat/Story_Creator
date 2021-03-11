@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // All routes for registration defined here
 // Loaded into server.js into /registration
 
@@ -13,12 +12,12 @@ module.exports = (db) => {
         const query =  (`SELECT id, user_name FROM users`);
         const results = db.query(query);
         console.log("hi");
-    
+
         results.then(res => {
         console.log(res.rows);
         })
         .catch(err => {
-         console.log("catch");   
+         console.log("catch");
         res
         .status(500)
         .json({ error: err.message });
@@ -33,7 +32,7 @@ module.exports = (db) => {
         const user_password = req.body.user_password;
         const profile_pic = req.body.user_pic;
         const values = [user_name, user_email, user_password, profile_pic];
-        
+
         db.query(`INSERT INTO users (user_name, user_email, password, profile_pic_path)
         VALUES ($1, $2, $3, $4)` , values)
         .then(data => {
@@ -45,15 +44,5 @@ module.exports = (db) => {
         .json({ error: err.message });
         });
     });
-=======
-const express = require('express');
-const router  = express.Router();
-
-module.exports = (db) => {
-  //route to send login information
-  router.get("/", (req, res) => {
-    console.log(req.body);
-  });
->>>>>>> b6b35a35f6271da4800ffc2b574cdefe4b66d3be
   return router;
 };
