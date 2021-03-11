@@ -9,7 +9,7 @@ const bodyParser = require("body-parser");
 const sass       = require("node-sass-middleware");
 const app        = express();
 const morgan     = require('morgan');
-const cookie = require('cookie');
+const cookieParser = require('cookie-parser');
 
 //const cookieSession = require("cookie-session");
 
@@ -32,7 +32,7 @@ app.set("view engine", "ejs");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(cookieParser());
 
 //app.use(bodyParser.urlencoded({ extended: true }));
 
