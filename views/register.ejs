@@ -1,26 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+      <!-- Fonts -->
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+      <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&display=swap" rel="stylesheet">
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+      <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
+
+    <!--Styles-->
+    <link rel="stylesheet" href="styles/layout.css">
+
     <title>Home Page</title>
 
-    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-
-    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
   </head>
 
   <body>
-    <%- include('partials/_header') %>  
-    <div class = "content">
-      <h1>Welcome!</h1>
-      <p>This is a page to register</p>
-    </div>
-    <footer>this is the footer</footer>
-    
+    <%- include('partials/_header') %>
+    <main class="register-main">
+      <div class="register-box">
+
+        <!--Registration Form-->
+        <form class="register-form" action="/register" method="POST">
+          <div class="container">
+            <h1>Register</h1>
+            <p>Please fill in this form to create an account.</p>
+            <hr>
+
+            <input type="text" placeholder="Enter Username" name="username">
+            <input type="email" placeholder="Enter Email" name="email">
+            <input type="password" placeholder="Repeat Password" name="password">
+
+            <hr>
+            <button type="submit" class="register-btn">Register</button>
+          </div>
+        </form>
+      </div>
+    </main>
+
   </body>
 </html>
+

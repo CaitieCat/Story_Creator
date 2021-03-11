@@ -1,118 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
+
+      <!-- Fonts -->
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+      <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&display=swap" rel="stylesheet">
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+      <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
+
+
+    <!--Styles-->
+    <link rel="stylesheet" href="styles/layout.css">
+
     <title>Home Page</title>
 
-    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
-
-    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
   </head>
 
   <body>
-    <%- include('partials/_header') %>  
-    <div class = "content">
-      <h1>Welcome!</h1>
-      <form method="GET" action="/new_story">
-      <button type="submit">Post a new story here!</button>
-    </div>
-    <div class = "stories">
-      <div class = "completed-stories">
-        <h2>Here are the completed stories</h2>
-      <table>
-        <thead>
-          <tr>
-            <th scope="col">Story name</th>
-            <th scope="col">Theme</th>
-            <th scope="col">Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td>I'm a story</td>
-          <td>This is my theme</td>
-          <td><form method="GET" action="/stories/:id/delete">
-            <button type="submit">Delete</button> 
-            </form></td>
-      </tr>
-      <tr>
-        <td>I'm a story</td>
-          <td>This is my theme</td>
-          <td><form method="GET" action="/stories/:id/delete">
-            <button type="submit">Delete</button> 
-            </form></td>
-      </tr>
-      <tr>
-        <td>I'm a story</td>
-          <td>This is my theme</td>
-          <td><form method="GET" action="/stories/:id/delete">
-            <button type="submit">Delete</button> 
-            </form></td>
-      </tr>
-    </tbody>
-  </table>
+    <%- include('partials/_header') %>
+    <main class="create-stories">
+      <div class="container">
+        <form method="GET" action="/stories/:id">
+          <textarea class="new-story" name="text" placeholder="Start your story here..." rows="6"></textarea>
+          <button type="submit" class="submit-button" >Post</button>
+          </div>
+        </form>
       </div>
-      <div class = "incomplete-stories">
-        <h2>Here are the incomplete stories</h2>
-        <table>
-          <thead>
-            <tr>
-              <th scope="col">Story name</th>
-              <th scope="col">Theme</th>
-              <th scope="col">Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>I'm a story</td>
-            <td>This is my theme</td>
-            <td>
-              <form method="GET" action="/stories/:id">
-              <button type="submit">Edit</button> 
-              </form>
-            </td>
-            <td><form method="GET" action="/stories/:id/delete">
-              <button type="submit">Delete</button> 
-              </form></td>
-        </tr>
-        <tr>
-          <td>I'm a story</td>
-            <td>This is my theme</td>
-            <td>
-              <form method="GET" action="/stories/:id">
-              <button type="submit">Edit</button> 
-              </form>
-            </td>
-            <td><form method="GET" action="/stories/:id/delete">
-              <button type="submit">Delete</button> 
-              </form></td>
-        </tr>
-        <tr>
-          <td>I'm a story</td>
-            <td>This is my theme</td>
-            <td>
-              <form method="GET" action="/stories/:id">
-              <button type="submit">Edit</button> 
-              </form>
-            </td>
-            <td><form method="GET" action="/stories/:id/delete">
-              <button type="submit">Delete</button> 
-              </form></td>
-        </tr>
-      </tbody>
-        <table>
+    </main>
+
+    <div class="stories-container">
+      <div class="completed-stories">
+        <h1>Completed Stories</h1>
+        <div class="story">
+          <header>
+            <a href="/stories/:id">Story 1</a>
+            <button>Delete</button>
+          </header>
+           <p>Theme</p>
+           <hr>
+          <footer>
+            <p>Name</p>
+            <p>Created at</p>
+          </footer>
+        </div>
+        <div class="story">
+          <header>
+            <a href="/stories/:id">Story 2</a>
+            <button>Delete</button>
+          </header>
+           <p>Theme</p>
+           <hr>
+          <footer>
+            <p>Name</p>
+            <p>Created at</p>
+          </footer>
+        </div>
+        <div class="story">
+        <header>
+          <a href="/stories/:id">Story 3</a>
+          <button>Delete</button>
+        </header>
+         <p>Theme</p>
+         <hr>
+        <footer>
+          <p>Name</p>
+          <p>Created at</p>
+        </footer>
       </div>
+      </div>
+
+      <div class="inprogress-stories">
+        <h1>In-Progress Stories</h1>
+        <div class="story">
+          <header>
+            <a href="/stories/:id">Story 3</a>
+            <button>Delete</button>
+          </header>
+           <p>Theme</p>
+           <hr>
+          <footer>
+            <p>Name</p>
+            <p>Created at</p>
+          </footer>
+          </div>
+          <div class="story">
+            <header>
+              <a href="/stories/:id">Story 3</a>
+              <button>Delete</button>
+            </header>
+             <p>Theme</p>
+             <hr>
+            <footer>
+              <p>Name</p>
+              <p>Created at</p>
+            </footer>
+            </div>
+            <div class="story">
+              <header>
+                <a href="/stories/:id">Story 3</a>
+                <button>Delete</button>
+              </header>
+               <p>Theme</p>
+               <hr>
+              <footer>
+                <p>Name</p>
+                <p>Created at</p>
+              </footer>
+              </div>
     </div>
-    <footer>this is the footer</footer>
+
   </body>
 </html>
+
+

@@ -1,11 +1,17 @@
+<link rel="stylesheet" href="styles/layout.css">
+
 <header>
-    <nav class="navbar">
-      <a class="navbar-brand" href="/stories">Story Creator</a>
-        <form method="GET" action="/login">
-            <button type="submit" class="btn btn-primary">Log in</button>
-        </form>
-        <form method="GET" action="/register">
-          <button type="submit" class="btn btn-primary">Register</button>
-        </form>
-    </nav>
-  </header>
+  <nav>
+    <a class="navbar-brand" href="/stories">Story Creator</a>
+
+    <form class="login" method="GET" action="/login">
+      <input class="form-control" type="email" name="email" placeholder="E-mail" style="width: 300px; margin: 1em">
+      <input class="form-control" type="password" name="password" placeholder="Password" style="width: 300px; margin: 1em">
+      <button type="submit" class="btn btn-primary">Log in</button>
+    </form>
+
+    <form method="GET" action="/register">
+      <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+  </nav>
+</header>
