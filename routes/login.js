@@ -21,14 +21,9 @@ module.exports = (db) => {
       WHERE user_email = $1
       AND password = $2`, values)
       .then(data => {
-        if (data.rows[0] === undefined){
           console.log(data.rows);
-          res.cookie('user_name', user_email);
-          console.log("rows", data.rows[0]);
+          res.cookie('user_id', data.rows[0]['id']);
           res.redirect('/stories');
-        } else if (data.rows = []) {
-          res.send("Invalid email or password");
-        }
       })
       .catch(err => {
         console.log(err.message);

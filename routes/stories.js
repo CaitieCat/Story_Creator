@@ -3,7 +3,7 @@
 
 const express = require('express');
 const router  = express.Router();
-const { allStories, allContributions } = require('../lib/dbhelpers/stories_db_helper');
+const { allStories, allContributions, storyStart } = require('../lib/dbhelpers/stories_db_helper');
 //const { newStory } = require('./public/scripts/helpers');
 
 module.exports = (db) => {
@@ -33,6 +33,7 @@ module.exports = (db) => {
     
   router.post('/', (req, res) =>{
     console.log("I'm a post!");
+    //const user_id = req.cookies['user_id'];
     const user_id = 1;
     const title = req.body.title;
     const content = req.body.content;
@@ -51,12 +52,19 @@ module.exports = (db) => {
   });
 
   router.get('/:id', (req, res) => {
-
+    const story_id = req.params.id;
+    console.log(story_id);
     console.log("Redirected to a unique story");
-    const userContributions = allContributions(db)
+    const userContributions = allContributions(db, story_id)
     .then((user_contributions) => {
       const contributions = [];
-        const tempVar = { contributions };
+      const storyContent = storyStart(db, story_id)
+      .then((data) => {
+      //console.log(data);
+      return data;
+      })
+      console.log(storyContent);
+      const tempVar = { contributions, story_id, storyContent};
         for (let each of user_contributions) {
             contributions.push(each);
         }
@@ -70,7 +78,7 @@ module.exports = (db) => {
 
   router.post('/:id', (req, res) => {
     console.log("I'm a contribution!");
-    const story_id = 1;
+    const story_id = parseInt(req.params.id);
     const user_id = 1;
     const contribution = req.body.newContribution;
     const contributed_at = new Date().toISOString();
@@ -79,7 +87,7 @@ module.exports = (db) => {
       `INSERT INTO user_contributions (story_id, user_id, contribution, contributed_at)
         VALUES ($1, $2, $3, $4)`, values)
       .then((data) => {
-        res.redirect("/stories/:id");
+        res.redirect(`/stories/${story_id}`);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });

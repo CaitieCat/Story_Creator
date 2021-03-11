@@ -39,61 +39,61 @@
         <% for (const each of completeStories) {%>
           <div class="story">
             <header>
-              <a href="/stories/:id"><%= each.title %></a>
+              <a href="/stories/<%= each.id %>"><%= each.title %></a>
               <button>Delete</button>
             </header>
-             <p><%= each.theme_id %></p>
-             <hr>
+            <p><%= each.theme_id %></p>
+            <hr>
             <footer>
               <p><%= each.user_id %></p>
               <p><%= each.created_at %></p>
             </footer>
-            </div>
-            <% } %>
-        <div class="story">
-          <header>
-            <a href="/stories/:id">Story 1</a>
-            <button>Delete</button>
-          </header>
-           <p>Theme</p>
-           <hr>
-          <footer>
-            <p>Name</p>
-            <p>Created at</p>
-          </footer>
+          </div>
+          <% } %>
+          <div class="story">
+            <header>
+              <a href="/stories/:id">Story 1</a>
+              <button>Delete</button>
+            </header>
+            <p>Theme</p>
+            <hr>
+            <footer>
+              <p>Name</p>
+              <p>Created at</p>
+            </footer>
+          </div>
+          <div class="story">
+            <header>
+              <a href="/stories/:id">Story 2</a>
+              <button>Delete</button>
+            </header>
+            <p>Theme</p>
+            <hr>
+            <footer>
+              <p>Name</p>
+              <p>Created at</p>
+            </footer>
+          </div>
+          <div class="story">
+            <header>
+              <a href="/stories/:id">Story 3</a>
+              <button>Delete</button>
+            </header>
+            <p>Theme</p>
+            <hr>
+            <footer>
+              <p>Name</p>
+              <p>Created at</p>
+            </footer>
+          </div>
         </div>
-        <div class="story">
-          <header>
-            <a href="/stories/:id">Story 2</a>
-            <button>Delete</button>
-          </header>
-           <p>Theme</p>
-           <hr>
-          <footer>
-            <p>Name</p>
-            <p>Created at</p>
-          </footer>
-        </div>
-        <div class="story">
-        <header>
-          <a href="/stories/:id">Story 3</a>
-          <button>Delete</button>
-        </header>
-         <p>Theme</p>
-         <hr>
-        <footer>
-          <p>Name</p>
-          <p>Created at</p>
-        </footer>
-      </div>
-      </div>
-
-      <div class="inprogress-stories">
-        <h1>In-Progress Stories</h1>
-        <% for (const each of inprogressStories) {%>
-        <div class="story">
-          <header>
-            <a href="/stories/:id"><%= each.title %></a>
+        
+        <div class="inprogress-stories">
+          <h1>In-Progress Stories</h1>
+          <% for (const each of inprogressStories) {%>
+            <div class="story">
+              <header>
+            <a href="/stories/<%= each.id %>"><%= each.title %></a>
             <button>Delete</button>
           </header>
            <p><%= each.theme_id %></p>

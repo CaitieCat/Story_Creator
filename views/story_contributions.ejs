@@ -32,6 +32,7 @@
           <div class="story">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam non libero diam. Maecenas urna leo, consequat accumsan diam non, porta luctus turpis. Maecenas interdum elementum odio id commodo. Nullam id neque ac elit sollicitudin efficitur. Nunc vehicula augue ac libero convallis interdum. Fusce dictum mi nisl, et faucibus arcu cursus vel. Nunc vitae tempor magna. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer sagittis, enim ut ultricies ultricies, turpis sapien congue magna, sit amet placerat nisi enim nec tellus. Suspendisse sodales varius erat, et tincidunt lorem feugiat id. Maecenas interdum mauris lobortis, iaculis erat id, condimentum metus. Cras nisl tortor, luctus eu ipsum ut, mattis tincidunt lacus. Aliquam blandit libero a magna tristique, id interdum velit feugiat. Nunc nec cursus lorem, nec tincidunt nisl. Suspendisse pellentesque massa ut lacus aliquam, ac lacinia felis ornare. Sed mollis odio sit amet scelerisque dictum. </p>
           </div>
+          <button>completed!</button>
         </div>
 
 
@@ -41,7 +42,7 @@
 
           <main>
             <div class="container">
-              <form method="POST" action="/stories/:id">
+              <form method="POST" action="/stories/<%= story_id %>">
                 <textarea class="newContribution" name="newContribution" placeholder="Start your story here..." rows="6"></textarea>
                 <button type="submit" class="submit-button" >Post</button>
               </form>
@@ -59,6 +60,10 @@
               <footer>
                 <p><%= each.user_id %></p>
                 <p><%= each.contributed_at %></p>
+                <p>Upvote #</p>
+                <p>&#x1F44D</p>
+                <button>Upvote</button>
+                <button>Add to story</button>
               </footer>
               </div>
               <% } %>
