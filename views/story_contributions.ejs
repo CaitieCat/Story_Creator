@@ -32,9 +32,11 @@
           <div class="story">
             <p><%= storyContent %> </p>
           </div>
+          <% if (user_id === created_by) { %>
           <form method="POST" action="/stories/<%= story_id %>/statusUpdate">
           <button type = "submit" class = "complete">completed!</button>
         </form>
+        <% } %>
         </div>
 
 
@@ -55,33 +57,21 @@
           <% for (const each of contributions) {%>
             <div class="contribution">
               <header>
-                <button>Delete</button>
               </header>
                <p><%= each.contribution %></p>
                <hr>
               <footer>
-                <p><%= each.user_id %></p>
                 <p><%= each.contributed_at %></p>
-                <p>Upvote #</p>
                 <p>&#x1F44D</p>
                 <button>Upvote</button>
+                <% if (user_id === created_by) { %>
+                <form method="POST" action="/stories/<%= story_id %>/storyUpdate">
                 <button>Add to story</button>
+              </form>
+              <% } %>
               </footer>
               </div>
               <% } %>
-          <div class="contribution">
-            <header>
-              <a href="/stories/:id">Story 3</a>
-              <button>Delete</button>
-            </header>
-            <p>Upvotes</p>
-            <hr>
-            <footer>
-              <p>Name</p>
-              <p>Created at</p>
-            </footer>
-          </div>
-        </div>
     </main>
 
   </body>

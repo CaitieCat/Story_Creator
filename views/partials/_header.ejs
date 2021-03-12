@@ -6,14 +6,19 @@
 <header>
   <nav>
     <a class="navbar-brand" href="/stories">Story Creator</a>
+    <% if (user_id === undefined){ %>
     <form class="login" method="POST" action="/login">
       <input class="form-control" type="email" name="email" placeholder="E-mail" style="width: 300px; margin: 1em">
       <input class="form-control" type="password" name="password" placeholder="Password" style="width: 300px; margin: 1em">
-      <button type="submit" class="btn btn-primary">Log in</button>
+      <button type="submit">Log in</button>
     </form>
-
     <form method="GET" action="/register">
-      <button type="submit" class="btn btn-primary">Register</button>
+      <button type="submit">Register</button>
     </form>
+    <% } else { %>
+      <form method="POST" action="/logout">
+        <button type="submit">Logout</button>
+      </form>
+      <% } %>
   </nav>
 </header>

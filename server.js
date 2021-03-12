@@ -11,8 +11,6 @@ const app        = express();
 const morgan     = require('morgan');
 const cookieParser = require('cookie-parser');
 
-//const cookieSession = require("cookie-session");
-
 // PG database client/connection setup
 const { Pool } = require('pg');
 const dbParams = require('./lib/db.js');
@@ -31,15 +29,13 @@ app.use(morgan('dev'));
 app.set("view engine", "ejs");
 
 app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({extended: true})); // This will help in encoding.
+// this will support json format
 app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(cookieParser());
 
-//app.use(bodyParser.urlencoded({ extended: true }));
-
-// app.use(bodyParser.urlencoded({extended: true})); // This will help in encoding.
- // this will support json format
-
-app.use(express.static("public")); 
+app.use(express.static("public"));
 app.use("/styles", sass({
   src: __dirname + "/styles",
   dest: __dirname + "/public/styles",
@@ -47,35 +43,27 @@ app.use("/styles", sass({
   outputStyle: 'expanded'
 }));
 
-
 // Separated Routes for each Resource
-// Note: Feel free to replace the example routes below with your own
-//const usersRoutes = require("./routes/users");
 const storiesRoutes = require("./routes/stories");
 const registerRoutes = require("./routes/register");
-const user_profileRoutes = require("./routes/user_profile");
 const loginRoutes = require("./routes/login");
+const logoutRoutes = require("./routes/logout");
 
 // Mount all resource routes
-// Note: Feel free to replace the example routes below with your own
-// app.use("/api/users", usersRoutes(db));
-
-// Note: mount other resources here, using the same pattern above
 app.use("/stories", storiesRoutes(db));
 app.use("/register", registerRoutes(db));
 app.use("/login", loginRoutes(db));
-app.use("/user_profile", user_profileRoutes(db));
+app.use("/logout", logoutRoutes());
 
 
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 app.get("/", (req, res) => {
-  res.render("index");
+  const user_id = req.cookies['user_id'];
+  templateVar = {user_id}
+  res.render("index", templateVar);
 });
-
-
-
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

@@ -3,19 +3,23 @@
 
 const express = require('express');
 const router  = express.Router();
-const { allStories, allContributions, storyStart, storyCompleted } = require('../lib/dbhelpers/stories_db_helper');
+const { allStories, allContributions, storyStart, storyCompleted, storyUpdated, getContribution } = require('../lib/dbhelpers/stories_db_helper');
 //const { newStory } = require('./public/scripts/helpers');
 
 module.exports = (db) => {
-  // can be used if there is an Admin page to list all the clients /* router.get
-  //render the stories page to view all stories
+
+  // render the stories page to view all stories
+
   router.get("/", (req, res) => {
+    const user_id = req.cookies['user_id'];
+    if (user_id !== undefined){
     console.log("Redirected to stories");
+    const user_id = req.cookies['user_id'];
     const stories = allStories(db)
       .then((stories) => {
         const completeStories = [];
         const inprogressStories = [];
-        const tempVar = {completeStories, inprogressStories};
+        const tempVar = {completeStories, inprogressStories, user_id};
         for (let story of stories) {
           if (!story.story_status) {
             inprogressStories.push(story);
@@ -29,7 +33,12 @@ module.exports = (db) => {
         console.log("Error: ", err);
         res.status(500).json({ error: err.message });
       });
+    } else {
+      res.redirect('http://localhost:8080/');
+    }
   });
+
+  // post a new story
     
   router.post('/', (req, res) =>{
     console.log("I'm a post!");
@@ -51,12 +60,14 @@ module.exports = (db) => {
       });
   });
 
+  // view individual story with its current contributions
+
   router.get('/:id', (req, res) => {
     const story_id = req.params.id;
-    const cookie = req.cookies['user_id'];
-    console.log(cookie);
+    const created_by = req.query.created_by_user;
+    const user_id = req.cookies['user_id']
     console.log("Redirected to a unique story");
-    const tempVar = {story_id};
+    const tempVar = {story_id, user_id, story_id, created_by};
     const userContributions = allContributions(db, story_id)
     .then((user_contributions) => {
       const contributions = [];
@@ -77,6 +88,8 @@ module.exports = (db) => {
 
   });
 
+  // post a new contribution
+
   router.post('/:id', (req, res) => {
     console.log("I'm a contribution!");
     const story_id = parseInt(req.params.id);
@@ -95,6 +108,8 @@ module.exports = (db) => {
       });
   }) 
 
+  // updates the status of the story
+
   router.post('/:id/statusUpdate', (req, res) => {
     res.redirect("/stories");
     const story_id = parseInt(req.params.id);
@@ -106,6 +121,27 @@ module.exports = (db) => {
         console.log("Error: ", err);
         res.status(500).json({ error: err.message });
       });
+  })
+
+  // updates the story to append a contribution to it
+
+  router.post('/:id/storyUpdate', (req, res) => {
+    const story_id = parseInt(req.params.id);
+    console.log(story_id);
+    const content = getContribution(db, id)
+    .then((data) => {
+      const storyComplete = storyUpdated(db, story_id, content)
+      .then((data) => {
+        })
+        .catch((err) => {
+          console.log("Error: ", err);
+          res.status(500).json({ error: err.message });
+        });
+    })
+    .catch((err) => {
+      console.log("Error: ", err);
+      res.status(500).json({ error: err.message });
+    });
   })
 
   return router;

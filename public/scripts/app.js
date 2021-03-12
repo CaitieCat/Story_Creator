@@ -1,6 +1,6 @@
 const stories = require("../../routes/stories");
 
-localStorage;// TODO: Decide what to do about this .ajax request for users /api/users
+// TODO: Decide what to do about this .ajax request for users /api/users
 // const { newStory } = require('./public/scripts/helpers');
 
 $(() => {

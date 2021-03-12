@@ -39,10 +39,8 @@
         <% for (const each of completeStories) {%>
           <div class="story">
             <header>
-              <a href="/stories/<%= each.id %>"><%= each.title %></a>
-              <button>Delete</button>
+              <a href="/stories/<%= each.id %>?created_by_user=<%=each.user_id %>"><%= each.title %></a>
             </header>
-            <p><%= each.theme_id %></p>
             <hr>
             <footer>
               <p><%= each.user_id %></p>
@@ -57,10 +55,9 @@
           <% for (const each of inprogressStories) {%>
             <div class="story">
               <header>
-            <a href="/stories/<%= each.id %>"><%= each.title %></a>
-            <button>Delete</button>
+            <a href="/stories/<%= each.id %>?created_by_user=<%=each.user_id %>"><%= each.title %></a>
           </header>
-           <p><%= each.theme_id %></p>
+
            <hr>
           <footer>
             <p><%= each.user_id %></p>
