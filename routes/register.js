@@ -7,7 +7,10 @@ const router = express.Router();
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
-    res.render("register");
+    templateVars = {
+      user_id : req.cookies['user_id']
+    };
+    res.render("register", templateVars);
   });
 
   // registers a new user to the database

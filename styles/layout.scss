@@ -38,7 +38,7 @@ nav {
 
 body {
   background-color: #7C90A0;
-  color: #DEE7E7;
+  color: #f5ffff;
   font-family: 'Cormorant Garamond', serif;
   margin: 0;
 
@@ -236,8 +236,12 @@ button {
   footer {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
   }
+
+  .button{
+    display: flex;
+    }
 
   hr {
     border: solid 1px;

@@ -47,7 +47,7 @@
           <main>
             <div class="container">
               <form method="POST" action="/stories/<%= story_id %>">
-                <textarea class="newContribution" name="newContribution" placeholder="Start your story here..." rows="6"></textarea>
+                <textarea class="newContribution" name="newContribution" placeholder="Continue the story here..." rows="6"></textarea>
                 <button type="submit" class="submit-button" >Post</button>
               </form>
             </div>
@@ -57,13 +57,13 @@
           <% for (const each of contributions) {%>
             <div class="contribution">
               <header>
+                <p><%= each.contribution %></p>
               </header>
-               <p><%= each.contribution %></p>
                <hr>
               <footer>
                 <p><%= each.contributed_at %></p>
-                <p><%= upvotes %></p>
-                <p>&#x1F44D</p>
+                <div class= "upvotes">
+                <p><%= upvotes %> &#x1F44D</p>
                 <form method="POST" action="/stories/upvotes/<%= each.id %>">
                 <button>Upvote</button>
                 </form>
@@ -71,6 +71,7 @@
                 <form method="POST" action="/stories/<%= story_id %>/storyUpdate">
                 <button>Add to story</button>
               </form>
+            </div>
               <% } %>
               </footer>
               </div>
