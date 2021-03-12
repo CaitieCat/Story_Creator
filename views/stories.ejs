@@ -43,7 +43,6 @@
             </header>
             <hr>
             <footer>
-              <p><%= each.user_id %></p>
               <p><%= each.created_at %></p>
             </footer>
           </div>
@@ -60,8 +59,7 @@
 
            <hr>
           <footer>
-            <p><%= each.user_id %></p>
-            <p><%= each.created_at %></p>
+            <p>Created at: <%= each.created_at %></p>
           </footer>
           </div>
           <% } %>

@@ -3,7 +3,7 @@
 
 const express = require('express');
 const router  = express.Router();
-const { allStories, allContributions, storyStart, storyCompleted, storyUpdated, getContribution } = require('../lib/dbhelpers/stories_db_helper');
+const { allStories, allContributions, storyStart, storyCompleted, storyUpdated, getContribution, allUpvotes } = require('../lib/dbhelpers/stories_db_helper');
 //const { newStory } = require('./public/scripts/helpers');
 
 module.exports = (db) => {
@@ -42,8 +42,7 @@ module.exports = (db) => {
     
   router.post('/', (req, res) =>{
     console.log("I'm a post!");
-    //const user_id = req.cookies['user_id'];
-    const user_id = 1;
+    const user_id = req.cookies['user_id'];
     const title = req.body.title;
     const content = req.body.content;
     const created_at = new Date().toISOString();
@@ -63,22 +62,38 @@ module.exports = (db) => {
   // view individual story with its current contributions
 
   router.get('/:id', (req, res) => {
+    //grab values from url and cookies
     const story_id = req.params.id;
     const created_by = req.query.created_by_user;
     const user_id = req.cookies['user_id']
     console.log("Redirected to a unique story");
+    //pass to ejs
     const tempVar = {story_id, user_id, story_id, created_by};
+
+    //get all contributions
     const userContributions = allContributions(db, story_id)
     .then((user_contributions) => {
+      //creating an array to loop through in ejs
       const contributions = [];
+      //add each contribution to the array
       for (let each of user_contributions) {
           contributions.push(each);
       }
+      //passing the array to templateVars
       tempVar.contributions = contributions;
+      //getting the beginning of the story
       const storyContent = storyStart(db, story_id)
       .then((data) => {
+        //passing the templateVars the story content
         tempVar.storyContent = data[0]['content'];
-        res.render("story_contributions", tempVar);
+        const getUpvotes = allUpvotes(db)
+        .then((data) => {
+          console.log(data);
+          const upvotes = data[0]['count'];
+          tempVar.upvotes = upvotes;
+          //rendering the page while passing the templateVars
+          res.render("story_contributions", tempVar);
+        })
     })
       })
       .catch((err) => {
@@ -93,7 +108,7 @@ module.exports = (db) => {
   router.post('/:id', (req, res) => {
     console.log("I'm a contribution!");
     const story_id = parseInt(req.params.id);
-    const user_id = 1;
+    const user_id = req.cookies['user_id'];
     const contribution = req.body.newContribution;
     const contributed_at = new Date().toISOString();
     const values = [story_id, user_id, contribution, contributed_at];
@@ -107,6 +122,21 @@ module.exports = (db) => {
         res.status(500).json({ error: err.message });
       });
   }) 
+
+  router.post('/upvotes/:id', (req, res) => {
+    console.log(req.params.id);
+    const contribution_id = req.params.id;
+    const user_id = req.cookies['user_id'];
+    const values = [user_id, contribution_id];
+    db.query(`INSERT INTO upvotes ( user_id, user_contributions_id)
+    VALUES ($1,$2)`, values)
+    .then((data) => {
+      res.redirect('back');
+    })
+      .catch((err) => {
+
+      })
+    });
 
   // updates the status of the story
 

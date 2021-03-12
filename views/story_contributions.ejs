@@ -62,8 +62,11 @@
                <hr>
               <footer>
                 <p><%= each.contributed_at %></p>
+                <p><%= upvotes %></p>
                 <p>&#x1F44D</p>
+                <form method="POST" action="/stories/upvotes/<%= each.id %>">
                 <button>Upvote</button>
+                </form>
                 <% if (user_id === created_by) { %>
                 <form method="POST" action="/stories/<%= story_id %>/storyUpdate">
                 <button>Add to story</button>
