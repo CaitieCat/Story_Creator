@@ -28,14 +28,20 @@
       </div>
 
         <div class="story-start">
-          <h1>The Story So Far</h1>
+          <% if (status === false) { %>
+            <h1>The Story So Far</h1>
+          <% } else { %>
+            <h1>The finished story</h1>
+          <% } %>
           <div class="story">
             <p><%= storyContent %> </p>
           </div>
           <% if (user_id === created_by) { %>
+            <% if (status === false) { %>
           <form method="POST" action="/stories/<%= story_id %>/statusUpdate">
           <button type = "submit" class = "complete">completed!</button>
         </form>
+        <% } %>
         <% } %>
         </div>
 
@@ -46,15 +52,18 @@
 
           <main>
             <div class="container">
+              <% if (status === false) { %>
               <form method="POST" action="/stories/<%= story_id %>">
                 <textarea class="newContribution" name="newContribution" placeholder="Continue the story here..." rows="6"></textarea>
                 <button type="submit" class="submit-button" >Post</button>
               </form>
+              <% } %>
             </div>
           </main>
 
           <h1>Contributions</h1>
           <% for (const each of contributions) {%>
+            <% if (each.accepted === false) { %>
             <div class="contribution">
               <header>
                 <p><%= each.contribution %></p>
@@ -66,12 +75,15 @@
                 <p><%= upvotes %> &#x1F44D</p>
                 <form method="POST" action="/stories/upvotes/<%= each.id %>">
                 <button>Upvote</button>
+                <% if (status === false) { %>
                 </form>
                 <% if (user_id === created_by) { %>
-                <form method="POST" action="/stories/<%= story_id %>/storyUpdate">
+                <form method="POST" action="/stories/<%= story_id %>/storyUpdate/<%= each.id %>">
                 <button>Add to story</button>
               </form>
             </div>
+            <% } %>
+              <% } %>
               <% } %>
               </footer>
               </div>

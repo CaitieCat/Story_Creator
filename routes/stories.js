@@ -1,9 +1,9 @@
-// All routes for stories defined here
+  // All routes for stories defined here
 // Loaded into server.js into /stories
 
 const express = require('express');
 const router  = express.Router();
-const { allStories, allContributions, storyStart, storyCompleted, storyUpdated, getContribution, allUpvotes } = require('../lib/dbhelpers/stories_db_helper');
+const { allStories, allContributions, storyStart, storyCompleted, storyUpdated, getContribution, allUpvotes, storyByID, contributionAccepted } = require('../lib/dbhelpers/stories_db_helper');
 //const { newStory } = require('./public/scripts/helpers');
 
 module.exports = (db) => {
@@ -46,11 +46,10 @@ module.exports = (db) => {
     const title = req.body.title;
     const content = req.body.content;
     const created_at = new Date().toISOString();
-    const theme_id = 1;
-    const values = [user_id, title, content, created_at, theme_id];
+    const values = [user_id, title, content, created_at];
     db.query(
-      `INSERT INTO stories (user_id, title, content, created_at, theme_id)
-        VALUES ($1, $2, $3, $4, $5)`, values)
+      `INSERT INTO stories (user_id, title, content, created_at)
+        VALUES ($1, $2, $3, $4)`, values)
       .then((data) => {
         res.redirect("/stories");
       })
@@ -89,10 +88,15 @@ module.exports = (db) => {
         const getUpvotes = allUpvotes(db)
         .then((data) => {
           console.log(data);
-          const upvotes = data[0]['count'];
+          const upvotes = data[2]['count'];
           tempVar.upvotes = upvotes;
-          //rendering the page while passing the templateVars
-          res.render("story_contributions", tempVar);
+          const storyStatus = storyByID(db, story_id)
+          .then((data) => {
+            const status = data[0]['story_status'];
+            tempVar.status = status;
+            //rendering the page while passing the templateVars
+            res.render("story_contributions", tempVar);
+          })
         })
     })
       })
@@ -173,6 +177,31 @@ module.exports = (db) => {
       res.status(500).json({ error: err.message });
     });
   })
+
+// update story with contribution
+  router.post('/:id/storyUpdate/:conId', (req, res) => {
+    const contribution_id = parseInt(req.params.conId);
+    const story_id = parseInt(req.params.id);
+    console.log(story_id);
+    const content = getContribution(db, contribution_id)
+    .then((data) => {
+      const content = ' ' + data[0]['contribution'];
+      console.log("Story appended to");
+      const contributionStatus = contributionAccepted(db, contribution_id)
+      .then((data) => {
+        const storyComplete = storyUpdated(db, story_id, content)
+        .then((data) =>{
+         res.redirect('/');
+
+       })
+      })})
+    
+    .catch((err) => {
+      console.log("Error: ", err);
+      res.status(500).json({ error: err.message });
+    });
+  })
+
 
   return router;
 };
