@@ -7,19 +7,6 @@ nav {
   justify-content: space-around;
   align-items: flex-end;
 
-  button {
-    background-color: #747274;
-    color: #DEE7E7;
-    border-radius: 8px;
-    margin-bottom: 1.5em;
-    margin-right: 1em;
-    border: none;
-  }
-
-  button:hover {
-    color: #a8b9b9;
-    background-color: #585358;
-  }
 
   .navbar-brand {
     color: #F4FAFF;
@@ -34,6 +21,7 @@ nav {
   .navbar-brand:hover {
     color: #DEE7E7;
   }
+
 }
 
 body {
@@ -50,11 +38,6 @@ body {
 
 }
 
-button {
-  background-color: #4E5166;
-  color: #DEE7E7;
-  border-radius: 8px;
-}
 
 .content {
   display: flex;
@@ -120,13 +103,6 @@ button {
     justify-content: center;
     margin-top: 3%;
 
-    .submit-button {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: #FFFFFF;
-      width: 10%;
-    }
   }
 
   .new-story{
@@ -239,9 +215,7 @@ button {
     justify-content: space-around;
   }
 
-  .button{
-    display: flex;
-    }
+
 
   hr {
     border: solid 1px;

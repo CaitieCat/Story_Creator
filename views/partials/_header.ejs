@@ -16,7 +16,7 @@
       <button type="submit">Register</button>
     </form>
     <% } else { %>
-      <p><%= user_name %></p>
+      <p class="user_name">Logged in as: <%= user_name %></p>
       <form method="POST" action="/logout">
         <button type="submit">Logout</button>
       </form>

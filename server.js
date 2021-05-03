@@ -65,8 +65,14 @@ app.use("/logout", logoutRoutes());
 // Separate them into separate routes files (see above).
 app.get("/", (req, res) => {
   const user_id = req.cookies['user_id'];
-  templateVar = {user_id}
-  res.render("index", templateVar);
+  tempVar = {user_id};
+  const values = [user_id];
+  db.query(`SELECT * FROM USERS WHERE id = $1`, values)
+  .then((data)=>{
+    const user_name = data.rows[0]['user_name'];
+    tempVar.user_name = user_name;
+    res.render("index", tempVar);
+  })
 });
 
 app.listen(PORT, () => {
