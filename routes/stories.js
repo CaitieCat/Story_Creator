@@ -192,11 +192,11 @@ module.exports = (db) => {
       const contributionStatus = contributionAccepted(db, contribution_id)
       .then((data) => {
         const storyComplete = storyUpdated(db, story_id, content)
-        .then((data) =>{
-         res.redirect('/');
-
-       })
-      })})
+      })
+      .then((data) =>{
+       res.redirect('/stories');
+     })
+    })
     
     .catch((err) => {
       console.log("Error: ", err);
