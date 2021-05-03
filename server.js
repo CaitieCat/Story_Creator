@@ -66,13 +66,18 @@ app.use("/logout", logoutRoutes());
 app.get("/", (req, res) => {
   const user_id = req.cookies['user_id'];
   tempVar = {user_id};
-  const values = [user_id];
-  db.query(`SELECT * FROM USERS WHERE id = $1`, values)
-  .then((data)=>{
-    const user_name = data.rows[0]['user_name'];
-    tempVar.user_name = user_name;
+  if (user_id){
+    const values = [user_id];
+    db.query(`SELECT * FROM USERS WHERE id = $1`, values)
+    .then((data)=>{
+      const user_name = data.rows[0]['user_name'];
+      tempVar.user_name = user_name;
+      res.render("index", tempVar);
+    })
+  } else {
     res.render("index", tempVar);
-  })
+  }
+
 });
 
 app.listen(PORT, () => {
