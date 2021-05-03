@@ -194,7 +194,7 @@ module.exports = (db) => {
         const storyComplete = storyUpdated(db, story_id, content)
       })
       .then((data) =>{
-       res.redirect('/stories');
+       res.redirect(`back`);
      })
     })
     
