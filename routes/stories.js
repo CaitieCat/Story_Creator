@@ -7,9 +7,14 @@ const { allStories, allContributions, storyStart, storyCompleted, storyUpdated, 
 //const { newStory } = require('./public/scripts/helpers');
 
 module.exports = (db) => {
+<<<<<<< HEAD
 
   // render the stories page to view all stories
 
+=======
+  // can be used if there is an Admin page to list all the clients /* router.get 
+  //render the stories page to view all stories
+>>>>>>> 19fced477c72ddac450c269a70042d393e9d0e40
   router.get("/", (req, res) => {
     const user_id = req.cookies['user_id'];
     if (user_id !== undefined){
