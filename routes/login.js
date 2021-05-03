@@ -8,7 +8,6 @@ const router  = express.Router();
 
 module.exports = (db) => {
   router.post("/", (req, res) => {
-<<<<<<< HEAD
     const user_email = req.body.user_email;
     const user_password = req.body.user_password;
     const values = [user_email, user_password];
@@ -29,9 +28,6 @@ module.exports = (db) => {
         res.sendStatus(403);
       });
     }
-=======
-    console.log(req.body);
->>>>>>> b6b35a35f6271da4800ffc2b574cdefe4b66d3be
   });
   return router;
 };

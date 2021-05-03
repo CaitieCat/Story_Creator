@@ -56,12 +56,7 @@ const user_profileRoutes = require("./routes/user_profile");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
-<<<<<<< HEAD
-app.use("/api/users", usersRoutes(db));
-
-=======
 app.use("/users", usersRoutes(db));
->>>>>>> b6b35a35f6271da4800ffc2b574cdefe4b66d3be
 // Note: mount other resources here, using the same pattern above
 app.use("/stories", storiesRoutes(db));
 app.use("/new_story", newStoryRoutes(db));

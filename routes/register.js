@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // All routes for registration defined here
 // Loaded into server.js into /registration
 
@@ -45,15 +44,5 @@ module.exports = (db) => {
         .json({ error: err.message });
         });
     });
-=======
-const express = require('express');
-const router  = express.Router();
-
-module.exports = (db) => {
-  //route to send login information
-  router.get("/", (req, res) => {
-    console.log(req.body);
-  });
->>>>>>> b6b35a35f6271da4800ffc2b574cdefe4b66d3be
   return router;
 };
