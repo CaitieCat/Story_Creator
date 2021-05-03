@@ -44,18 +44,16 @@ app.use("/styles", sass({
 }));
 
 // Separated Routes for each Resource
+const usersRoutes = require("./routes/users");
 const storiesRoutes = require("./routes/stories");
 const registerRoutes = require("./routes/register");
 const loginRoutes = require("./routes/login");
 const logoutRoutes = require("./routes/logout");
 
 // Mount all resource routes
-<<<<<<< HEAD
-=======
 // Note: Feel free to replace the example routes below with your own
 app.use("/users", usersRoutes(db));
 // Note: mount other resources here, using the same pattern above
->>>>>>> 727665db87829e8fb41eb20b7a316a4ec122e793
 app.use("/stories", storiesRoutes(db));
 app.use("/register", registerRoutes(db));
 app.use("/login", loginRoutes(db));
