@@ -7,7 +7,6 @@ const { allStories, allContributions, storyStart, storyCompleted, storyUpdated, 
 //const { newStory } = require('./public/scripts/helpers');
 
 module.exports = (db) => {
-
   // render the stories page to view all stories
 
   // can be used if there is an Admin page to list all the clients /* router.get 
@@ -21,7 +20,7 @@ module.exports = (db) => {
       .then((stories) => {
         const completeStories = [];
         const inprogressStories = [];
-        const tempVar = {completeStories, inprogressStories, user_id};
+        const values = [user_id];
         for (let story of stories) {
           if (!story.story_status) {
             inprogressStories.push(story);
@@ -29,7 +28,13 @@ module.exports = (db) => {
             completeStories.push(story);
           }
         }
-        res.render("stories", tempVar);
+        db.query(`SELECT * FROM USERS WHERE id = $1`, values)
+        .then((data)=>{
+          console.log(data.rows[0]['user_name']);
+          const user_name = data.rows[0]['user_name']
+          const tempVar = {completeStories, inprogressStories, user_id, user_name};
+          res.render("stories", tempVar);
+        })
       })
       .catch((err) => {
         console.log("Error: ", err);
@@ -66,10 +71,12 @@ module.exports = (db) => {
     //grab values from url and cookies
     const story_id = req.params.id;
     const created_by = req.query.created_by_user;
-    const user_id = req.cookies['user_id']
+    const user_id = req.cookies['user_id'];
+    const values = [user_id];
+    const user_name = db.query(`SELECT * FROM USERS WHERE id = $1`, values);
     console.log("Redirected to a unique story");
     //pass to ejs
-    const tempVar = {story_id, user_id, story_id, created_by};
+    const tempVar = {story_id, user_id, story_id, created_by, user_name};
 
     //get all contributions
     const userContributions = allContributions(db, story_id)
