@@ -30,7 +30,6 @@ module.exports = (db) => {
         }
         db.query(`SELECT * FROM USERS WHERE id = $1`, values)
         .then((data)=>{
-          console.log(data.rows[0]['user_name']);
           const user_name = data.rows[0]['user_name']
           const tempVar = {completeStories, inprogressStories, user_id, user_name};
           res.render("stories", tempVar);
@@ -73,10 +72,9 @@ module.exports = (db) => {
     const created_by = req.query.created_by_user;
     const user_id = req.cookies['user_id'];
     const values = [user_id];
-    const user_name = db.query(`SELECT * FROM USERS WHERE id = $1`, values);
     console.log("Redirected to a unique story");
     //pass to ejs
-    const tempVar = {story_id, user_id, story_id, created_by, user_name};
+    const tempVar = {story_id, user_id, story_id, created_by};
 
     //get all contributions
     const userContributions = allContributions(db, story_id)
@@ -104,7 +102,12 @@ module.exports = (db) => {
             const status = data[0]['story_status'];
             tempVar.status = status;
             //rendering the page while passing the templateVars
-            res.render("story_contributions", tempVar);
+            db.query(`SELECT * FROM USERS WHERE id = $1`, values)
+            .then((data)=>{
+              const user_name = data.rows[0]['user_name'];
+              tempVar.user_name = user_name;
+              res.render("story_contributions", tempVar);
+            })
           })
         })
     })
