@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      <!-- Fonts -->
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+      <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&display=swap" rel="stylesheet">
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+      <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
+
+
+    <!--Styles-->
+    <link rel="stylesheet" href="styles/layout.css">
+
+    <title>Home Page</title>
+
+  </head>
+
+  <body>
+    <%- include('partials/_header') %>
+    <main class="create-stories">
+      <div class="container">
+        <form method="GET" action="/stories/:id">
+          <textarea class="new-story" name="text" placeholder="Start your story here..." rows="6"></textarea>
+          <button type="submit" class="submit-button" >Post</button>
+          </div>
+        </form>
+      </div>
+    </main>
+
+  </body>
+</html>
